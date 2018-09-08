@@ -8,7 +8,6 @@ public class TheaterApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Config.class, args);
-		
-		String abc;
+
 	}
 }
