@@ -39,7 +39,7 @@ public class ActorService {
 			if (actor != null) {
 				return actor;
 			} else {
-				throw new Exception("This show does not exist");
+				throw new Exception("Actor *" + name + "* does not exist");
 			}
 		} catch (Exception e) {
 			throw e;
@@ -105,8 +105,7 @@ public class ActorService {
 		actor = actorRepo.findByName(actor.getName());
 		if (actor != null) {
 			try {
-				Set<Show> shows = showRepo.findByActorsContaining(actor); // TODO just trying that. might have to go
-																			// plain java sorting
+				Set<Show> shows = showRepo.findByActorsContaining(actor); // TODO test this better
 				return shows;
 			} catch (Exception e) {
 				throw e;
