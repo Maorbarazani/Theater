@@ -20,6 +20,7 @@ public class ActorService {
 	@Autowired
 	private ActorRepository actorRepo;
 
+	// WIA
 	public List<Actor> getAllActors() throws Exception {
 		try {
 			List<Actor> actors = actorRepo.findAll();
@@ -47,8 +48,12 @@ public class ActorService {
 		}
 	}
 
+	// WIA
 	public Actor createActor(Actor actor) throws Exception {
-		if (actor.getName() != null && actorRepo.findByName(actor.getName()) == null) {
+		if (actorRepo.findByName(actor.getName()) != null) {
+			throw new Exception("Actor with name *" + actor.getName() + "* already exists");
+		}
+		if (actor.getName() != null) {
 			try {
 				Actor created = actorRepo.save(actor);
 				return created;
@@ -60,6 +65,7 @@ public class ActorService {
 		}
 	}
 
+	// WIA
 	public void removeActor(Actor actor) throws Exception {
 		if (actor.getName() != null) {
 			try {
@@ -72,6 +78,7 @@ public class ActorService {
 		}
 	}
 
+	// WIA
 	public void updateActorPassword(Actor actor, String newPass) throws Exception {
 		actor = actorRepo.findByName(actor.getName());
 		if (actor != null & newPass.trim() != null) {

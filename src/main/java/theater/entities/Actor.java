@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +21,7 @@ public class Actor {
 	private String name;
 	@Column(nullable = false)
 	private String password;
-	@ElementCollection(targetClass = Date.class)
+	@ElementCollection(fetch = FetchType.EAGER, targetClass = Date.class)
 	private Set<Date> naDates;
 
 	public Actor() {

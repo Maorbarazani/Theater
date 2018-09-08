@@ -148,6 +148,7 @@ public class ShowService {
 				for (Actor actor : actors) {
 					Set<Date> dates = actor.getNaDates();
 					for (Date date : dates) {
+						// TODO
 						if (!naDates.contains(date)) {
 							naDates.add(date);
 						}
@@ -157,9 +158,8 @@ public class ShowService {
 				if (!naDates.isEmpty()) {
 					return naDates;
 				} else {
-
+					throw new Exception("No unavailable dates for show " + show.getName() + "* found");
 				}
-				throw new Exception("No unavailable dates for show " + show.getName() + "* found");
 			} catch (Exception e) {
 				throw e;
 			}

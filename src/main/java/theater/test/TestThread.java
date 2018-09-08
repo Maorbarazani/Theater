@@ -1,9 +1,12 @@
 package theater.test;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import theater.entities.Actor;
 import theater.entities.Show;
 import theater.service.ActorService;
 import theater.service.ShowService;
@@ -47,7 +50,22 @@ public class TestThread extends Thread {
 
 			System.out.println("show2 actors=" + ss.getShowActors(show2));
 			// ss.removeActorFromShow(show2, actor3);
+			// Actor a1 = as.getActor("toDelete");
+			// System.out.println("all acotrs= " + as.getAllActors());
+			// System.out.println(a1);
+			// as.removeActor(a1);
+			as.updateActorPassword(as.getActor("actor2"), "newPass1");
 			System.out.println("all acotrs= " + as.getAllActors());
+			System.out.println(new Date());
+			System.out.println(DateMaker.setDate(1987, 03, 01));
+			Actor actor1 = as.getActor("actor1");
+			as.addNaDate(actor1, new Date());
+			as.addNaDate(actor1, DateMaker.setDate(1998, 05, 15));
+			System.out.println(as.getActorNaDates(actor1));
+			Actor actor2 = as.getActor("actor2");
+			as.addNaDate(actor2, new Date());
+			as.addNaDate(actor2, DateMaker.setDate(2010, 10, 10));
+			System.out.println("SHOW2 NA/DATES=" + ss.getShowNaDates(show2));
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
