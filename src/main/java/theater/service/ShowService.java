@@ -23,6 +23,7 @@ public class ShowService {
 	@Autowired
 	private ActorRepository actorRepo;
 
+	// WIA
 	public List<Show> getAllShows() throws Exception {
 		try {
 			List<Show> shows = showRepo.findAll();
@@ -36,8 +37,26 @@ public class ShowService {
 		}
 	}
 
+	// WIA
+	public Show getShow(String name) throws Exception {
+		try {
+			Show show = showRepo.findByName(name);
+			if (show != null) {
+				return show;
+			} else {
+				throw new Exception("This show does not exist");
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	// WIA
 	public Show createShow(Show show) throws Exception {
-		if (show.getName() != null && showRepo.findByName(show.getName()) == null) {
+		if (showRepo.findByName(show.getName()) != null) {
+			throw new Exception("Show with name *" + show.getName() + "* already exists");
+		}
+		if (show.getName() != null) {
 			try {
 				Show created = showRepo.save(show);
 				return created;
@@ -49,6 +68,7 @@ public class ShowService {
 		}
 	}
 
+	// WIA
 	public void removeShow(Show show) throws Exception {
 		if (show.getName() != null) {
 			try {
@@ -61,6 +81,7 @@ public class ShowService {
 		}
 	}
 
+	// WIA
 	public Show addActorToShow(Show show, Actor actor) throws Exception {
 		show = showRepo.findByName(show.getName());
 		actor = actorRepo.findByName(actor.getName());
@@ -77,6 +98,7 @@ public class ShowService {
 		}
 	}
 
+	// WIA
 	public Show removeActorFromShow(Show show, Actor actor) throws Exception {
 		show = showRepo.findByName(show.getName());
 		actor = actorRepo.findByName(actor.getName());
@@ -98,6 +120,7 @@ public class ShowService {
 		}
 	}
 
+	// WIA
 	public Set<Actor> getShowActors(Show show) throws Exception {
 		show = showRepo.findByName(show.getName());
 		if (show != null) {

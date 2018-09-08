@@ -33,6 +33,20 @@ public class ActorService {
 		}
 	}
 
+	// WIA
+	public Actor getActor(String name) throws Exception {
+		try {
+			Actor actor = actorRepo.findByName(name);
+			if (actor != null) {
+				return actor;
+			} else {
+				throw new Exception("This show does not exist");
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
 	public Actor createActor(Actor actor) throws Exception {
 		if (actor.getName() != null && actorRepo.findByName(actor.getName()) == null) {
 			try {
