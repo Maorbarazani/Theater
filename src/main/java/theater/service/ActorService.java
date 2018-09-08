@@ -1,6 +1,6 @@
 package theater.service;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -20,7 +20,6 @@ public class ActorService {
 	@Autowired
 	private ActorRepository actorRepo;
 
-	// WIA
 	public List<Actor> getAllActors() throws Exception {
 		try {
 			List<Actor> actors = actorRepo.findAll();
@@ -34,7 +33,6 @@ public class ActorService {
 		}
 	}
 
-	// WIA
 	public Actor getActor(String name) throws Exception {
 		try {
 			Actor actor = actorRepo.findByName(name);
@@ -48,7 +46,6 @@ public class ActorService {
 		}
 	}
 
-	// WIA
 	public Actor createActor(Actor actor) throws Exception {
 		if (actorRepo.findByName(actor.getName()) != null) {
 			throw new Exception("Actor with name *" + actor.getName() + "* already exists");
@@ -65,7 +62,6 @@ public class ActorService {
 		}
 	}
 
-	// WIA
 	public void removeActor(Actor actor) throws Exception {
 		if (actor.getName() != null) {
 			try {
@@ -78,7 +74,6 @@ public class ActorService {
 		}
 	}
 
-	// WIA
 	public void updateActorPassword(Actor actor, String newPass) throws Exception {
 		actor = actorRepo.findByName(actor.getName());
 		if (actor != null & newPass.trim() != null) {
@@ -92,11 +87,11 @@ public class ActorService {
 		}
 	}
 
-	public Set<Date> getActorNaDates(Actor actor) throws Exception {
+	public Set<LocalDate> getActorNaDates(Actor actor) throws Exception {
 		actor = actorRepo.findByName(actor.getName());
 		if (actor != null) {
 			try {
-				Set<Date> naDates = actor.getNaDates();
+				Set<LocalDate> naDates = actor.getNaDates();
 				return naDates;
 			} catch (Exception e) {
 				throw e;
@@ -121,7 +116,7 @@ public class ActorService {
 		}
 	}
 
-	public void addNaDate(Actor actor, Date date) throws Exception {
+	public void addNaDate(Actor actor, LocalDate date) throws Exception {
 		actor = actorRepo.findByName(actor.getName());
 		if (actor != null || date != null) {
 			try {
@@ -135,13 +130,13 @@ public class ActorService {
 		}
 	}
 
-	public void removeNaDate(Actor actor, Date date) throws Exception {
+	public void removeNaDate(Actor actor, LocalDate date) throws Exception {
 		actor = actorRepo.findByName(actor.getName());
 		if (actor != null || date != null) {
 			try {
-				Set<Date> naDates = actor.getNaDates();
-				if (!naDates.contains(date)) {
-					naDates.add(date);
+				Set<LocalDate> naDates = actor.getNaDates();
+				if (naDates.contains(date)) {
+					naDates.remove(date);
 					actorRepo.save(actor);
 				}
 			} catch (Exception e) {

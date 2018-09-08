@@ -1,7 +1,5 @@
 package theater.test;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -30,42 +28,28 @@ public class TestThread extends Thread {
 		try {
 			Thread.sleep(2500);
 			System.out.println("Test thread has started. SS=" + ss);
-			// ss.createShow(new Show(0, "testShow2", null));
-			// System.out.println(ss.createShow(new Show(0, "testShow3", null)));
 			System.out.println();
-			System.out.println("AllShows=" + ss.getAllShows());
-			// Show show3 = ss.getShow("testShow3");
-			// System.out.println("Show3=" + show3);
-			// ss.removeShow(show3);
-			Show show2 = ss.getShow("testShow2");
-			// System.out.println("show2 actors=" + ss.getShowActors(show2));
 
-			// as.createActor(new Actor(0, "actor2", "1234", null));
-			// Actor actor2 = as.getActor("actor2");
-			// ss.addActorToShow(show2, actor2);
-			//
-			// as.createActor(new Actor(0, "actor3", "1234", null));
-			// Actor actor3 = as.getActor("actor3");
-			// ss.addActorToShow(show2, actor3);
+			// ss.createShow(new Show(0, "show2", null));
+			// Actor actor1 = as.createActor(new Actor(0, "actor1", "1234", null));
+			// Actor actor2 = as.createActor(new Actor(0, "actor2", "qwer", null));
+			// Actor actor3 = as.createActor(new Actor(0, "actor3", "789", null));
+			// ss.addActorToShow(ss.getShow("show1"), actor1);
+			// ss.addActorToShow(ss.getShow("show1"), actor2);
+			// ss.addActorToShow(ss.getShow("show1"), actor3);
+			// System.out.println("SHOW1=" + ss.getShow("show1"));
+			Show show1 = ss.getShow("show1");
+			Actor actor3 = as.getActor("actor3");
 
-			System.out.println("show2 actors=" + ss.getShowActors(show2));
-			// ss.removeActorFromShow(show2, actor3);
-			// Actor a1 = as.getActor("toDelete");
-			// System.out.println("all acotrs= " + as.getAllActors());
-			// System.out.println(a1);
-			// as.removeActor(a1);
-			as.updateActorPassword(as.getActor("actor2"), "newPass1");
-			System.out.println("all acotrs= " + as.getAllActors());
-			System.out.println(new Date());
-			System.out.println(DateMaker.setDate(1987, 03, 01));
-			Actor actor1 = as.getActor("actor1");
-			as.addNaDate(actor1, new Date());
-			as.addNaDate(actor1, DateMaker.setDate(1998, 05, 15));
-			System.out.println(as.getActorNaDates(actor1));
-			Actor actor2 = as.getActor("actor2");
-			as.addNaDate(actor2, new Date());
-			as.addNaDate(actor2, DateMaker.setDate(2010, 10, 10));
-			System.out.println("SHOW2 NA/DATES=" + ss.getShowNaDates(show2));
+			// as.addNaDate(actor3, LocalDate.now());
+			// as.addNaDate(actor3, LocalDate.of(1999, 9, 9));
+
+			System.out.println("SHOW1 ACTORS=" + ss.getShowActors(show1));
+			System.out.println("SHOW1 NA/DATES=" + ss.getShowNaDates(show1));
+			System.out.println("SHOW1 NA MAP= " + ss.getShowNaMap(show1));
+
+			System.out.println("ACTOR3 NA DATES=" + as.getActorNaDates(actor3));
+			System.out.println("ACTOR3 SHOWS=" + as.getActorShows(actor3));
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}

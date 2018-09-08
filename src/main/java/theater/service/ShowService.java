@@ -1,6 +1,6 @@
 package theater.service;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -23,7 +23,6 @@ public class ShowService {
 	@Autowired
 	private ActorRepository actorRepo;
 
-	// WIA
 	public List<Show> getAllShows() throws Exception {
 		try {
 			List<Show> shows = showRepo.findAll();
@@ -37,21 +36,19 @@ public class ShowService {
 		}
 	}
 
-	// WIA
 	public Show getShow(String name) throws Exception {
 		try {
 			Show show = showRepo.findByName(name);
 			if (show != null) {
 				return show;
 			} else {
-				throw new Exception("This show does not exist");
+				throw new Exception("Show *" + name + "* does not exist");
 			}
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
-	// WIA
 	public Show createShow(Show show) throws Exception {
 		if (showRepo.findByName(show.getName()) != null) {
 			throw new Exception("Show with name *" + show.getName() + "* already exists");
@@ -68,7 +65,6 @@ public class ShowService {
 		}
 	}
 
-	// WIA
 	public void removeShow(Show show) throws Exception {
 		if (show.getName() != null) {
 			try {
@@ -81,7 +77,6 @@ public class ShowService {
 		}
 	}
 
-	// WIA
 	public Show addActorToShow(Show show, Actor actor) throws Exception {
 		show = showRepo.findByName(show.getName());
 		actor = actorRepo.findByName(actor.getName());
@@ -98,7 +93,6 @@ public class ShowService {
 		}
 	}
 
-	// WIA
 	public Show removeActorFromShow(Show show, Actor actor) throws Exception {
 		show = showRepo.findByName(show.getName());
 		actor = actorRepo.findByName(actor.getName());
@@ -120,7 +114,6 @@ public class ShowService {
 		}
 	}
 
-	// WIA
 	public Set<Actor> getShowActors(Show show) throws Exception {
 		show = showRepo.findByName(show.getName());
 		if (show != null) {
@@ -139,16 +132,15 @@ public class ShowService {
 		}
 	}
 
-	public Set<Date> getShowNaDates(Show show) throws Exception {
+	public Set<LocalDate> getShowNaDates(Show show) throws Exception {
 		show = showRepo.findByName(show.getName());
 		if (show != null) {
-			Set<Date> naDates = new HashSet<Date>();
+			Set<LocalDate> naDates = new HashSet<LocalDate>();
 			try {
 				Set<Actor> actors = show.getActors();
 				for (Actor actor : actors) {
-					Set<Date> dates = actor.getNaDates();
-					for (Date date : dates) {
-						// TODO
+					Set<LocalDate> dates = actor.getNaDates();
+					for (LocalDate date : dates) {
 						if (!naDates.contains(date)) {
 							naDates.add(date);
 						}
@@ -168,21 +160,14 @@ public class ShowService {
 		}
 	}
 
-	public Set<Date> getShowAvailableDates(Show show) throws Exception {
-		// Set<Date> naDates = getShowNaDates(show);
-		return null;
-		// TODO see how to iterate over dates for the next 3 months from today, and
-		// return only those who are NOT in naDates.
-	}
-
-	public Map<Date, Set<Actor>> getShowNaMap(Show show) throws Exception {
+	public Map<LocalDate, Set<Actor>> getShowNaMap(Show show) throws Exception {
 		show = showRepo.findByName(show.getName());
 		if (show != null) {
-			Map<Date, Set<Actor>> map = new HashMap<>();
+			Map<LocalDate, Set<Actor>> map = new HashMap<>();
 			Set<Actor> actors = show.getActors();
 			for (Actor actor : actors) {
-				Set<Date> dates = actor.getNaDates();
-				for (Date date : dates) {
+				Set<LocalDate> dates = actor.getNaDates();
+				for (LocalDate date : dates) {
 					if (!map.containsKey(date)) {
 						Set<Actor> absents = new HashSet<>();
 						absents.add(actor);

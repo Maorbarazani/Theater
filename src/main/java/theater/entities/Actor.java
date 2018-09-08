@@ -1,6 +1,6 @@
 package theater.entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -21,14 +21,14 @@ public class Actor {
 	private String name;
 	@Column(nullable = false)
 	private String password;
-	@ElementCollection(fetch = FetchType.EAGER, targetClass = Date.class)
-	private Set<Date> naDates;
+	@ElementCollection(fetch = FetchType.EAGER, targetClass = LocalDate.class)
+	private Set<LocalDate> naDates;
 
 	public Actor() {
 		super();
 	}
 
-	public Actor(long id, String name, String password, Set<Date> naDates) {
+	public Actor(long id, String name, String password, Set<LocalDate> naDates) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -60,11 +60,11 @@ public class Actor {
 		this.password = password;
 	}
 
-	public Set<Date> getNaDates() {
+	public Set<LocalDate> getNaDates() {
 		return naDates;
 	}
 
-	public void setNaDates(Set<Date> naDates) {
+	public void setNaDates(Set<LocalDate> naDates) {
 		this.naDates = naDates;
 	}
 
