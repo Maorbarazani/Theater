@@ -3,6 +3,7 @@ package theater.service;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,10 +23,23 @@ public class ShowService {
 	@Autowired
 	private ActorRepository actorRepo;
 
+	public List<Show> getAllShows() throws Exception {
+		try {
+			List<Show> shows = showRepo.findAll();
+			if (!shows.isEmpty()) {
+				return shows;
+			} else {
+				throw new Exception("No shows exist");
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
 	public Show createShow(Show show) throws Exception {
 		if (show.getName() != null && showRepo.findByName(show.getName()) == null) {
 			try {
-				Show created = showRepo.saveAndFlush(show);
+				Show created = showRepo.save(show);
 				return created;
 			} catch (Exception e) {
 				throw e;
@@ -53,7 +67,7 @@ public class ShowService {
 		if (show != null && actor != null) {
 			try {
 				show.getActors().add(actor);
-				Show updated = showRepo.saveAndFlush(show);
+				Show updated = showRepo.save(show);
 				return updated;
 			} catch (Exception e) {
 				throw e;
@@ -70,7 +84,7 @@ public class ShowService {
 			try {
 				if (show.getActors().contains(actor)) {
 					show.getActors().remove(actor);
-					Show updated = showRepo.saveAndFlush(show);
+					Show updated = showRepo.save(show);
 					return updated;
 				} else {
 					throw new Exception(
@@ -132,7 +146,7 @@ public class ShowService {
 	}
 
 	public Set<Date> getShowAvailableDates(Show show) throws Exception {
-		Set<Date> naDates = getShowNaDates(show);
+		// Set<Date> naDates = getShowNaDates(show);
 		return null;
 		// TODO see how to iterate over dates for the next 3 months from today, and
 		// return only those who are NOT in naDates.
