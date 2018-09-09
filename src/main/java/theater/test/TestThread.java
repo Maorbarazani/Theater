@@ -3,7 +3,6 @@ package theater.test;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import theater.entities.Actor;
@@ -12,7 +11,6 @@ import theater.service.ActorService;
 import theater.service.ShowService;
 
 @Component
-@Scope("prototype")
 public class TestThread extends Thread {
 
 	@Autowired
@@ -20,11 +18,6 @@ public class TestThread extends Thread {
 	@Autowired
 	private ActorService as;
 
-	/**
-	 * this method describes the thread actions: on every 24hour iteration the
-	 * 'today' date is being updated, and then used in conjunction with 3 different
-	 * DAO methods to find and remove expired coupons from wherever they appear.
-	 */
 	@Override
 	public void run() {
 		try {
@@ -50,6 +43,7 @@ public class TestThread extends Thread {
 
 			System.out.println("SHOW1 NAs=" + ss.getShowNaDates(show1));
 			System.out.println("SHOW2 NAs=" + ss.getShowNaDates(show2));
+			System.out.println("SHOW1 NA MAP=" + ss.getShowNaMap(show1));
 
 		} catch (Exception e) {
 			System.err.println(e.getMessage());

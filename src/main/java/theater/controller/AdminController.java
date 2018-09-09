@@ -208,4 +208,30 @@ public class AdminController {
 		}
 	}
 
+	@RequestMapping(value = "getActorNaDates/{name}", method = RequestMethod.GET)
+	public ResponseEntity<?> getActorNaDates(@PathVariable String name, HttpServletRequest req,
+			HttpServletResponse resp) {
+		try {
+			Actor a = as.getActor(name);
+			Set<LocalDate> naDates = as.getActorNaDates(a);
+			return new ResponseEntity<Set<LocalDate>>(naDates, HttpStatus.OK);
+		} catch (Exception e) {
+			System.err.println("## EXCEPTION: " + e.getMessage());
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@RequestMapping(value = "getActorShows/{name}", method = RequestMethod.GET)
+	public ResponseEntity<?> getActorShows(@PathVariable String name, HttpServletRequest req,
+			HttpServletResponse resp) {
+		try {
+			Actor a = as.getActor(name);
+			Set<Show> shows = as.getActorShows(a);
+			return new ResponseEntity<Set<Show>>(shows, HttpStatus.OK);
+		} catch (Exception e) {
+			System.err.println("## EXCEPTION: " + e.getMessage());
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+
 }
