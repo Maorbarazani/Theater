@@ -150,7 +150,7 @@ public class ShowService {
 				if (!naDates.isEmpty()) {
 					return naDates;
 				} else {
-					throw new Exception("No unavailable dates for show " + show.getName() + "* found");
+					throw new Exception("No unavailable dates for show *" + show.getName() + "* found");
 				}
 			} catch (Exception e) {
 				throw e;

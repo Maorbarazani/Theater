@@ -41,9 +41,8 @@ public class TestThread extends Thread {
 			as.addNaDate(actor1, LocalDate.now());
 			as.addNaDate(actor2, LocalDate.of(2015, 5, 15));
 
-			System.out.println("SHOW1 NAs=" + ss.getShowNaDates(show1));
 			System.out.println("SHOW2 NAs=" + ss.getShowNaDates(show2));
-			System.out.println("SHOW1 NA MAP=" + ss.getShowNaMap(show1));
+			System.out.println("SHOW2 NA MAP=" + ss.getShowNaMap(show2));
 
 		} catch (Exception e) {
 			System.err.println(e.getMessage());

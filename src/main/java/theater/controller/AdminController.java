@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +26,24 @@ import theater.service.ShowService;
 @RestController
 @RequestMapping("admin")
 // @Scope("session") //TODO work on this
+@CrossOrigin(origins = "http://localhost:4200") // TODO for testing purposes only while building client-side
 public class AdminController {
 
 	@Autowired
 	private ShowService ss;
 	@Autowired
 	private ActorService as;
+
+	@RequestMapping(value = "test", method = RequestMethod.POST)
+	public ResponseEntity<String> test(@RequestBody Integer num, HttpServletRequest req, HttpServletResponse resp) {
+		System.out.println("TEST INVOKED. num=" + num);
+		try {
+			return new ResponseEntity<String>("Test has worked, biatch!", HttpStatus.OK);
+		} catch (Exception e) {
+			System.err.println("## EXCEPTION: " + e.getMessage());
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
 
 	@RequestMapping(value = "getAllShows", method = RequestMethod.GET)
 	public ResponseEntity<?> getAllShows(HttpServletRequest req, HttpServletResponse resp) {
